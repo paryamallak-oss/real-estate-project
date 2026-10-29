@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ property.title }} | جزئیات ملک</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #f4f6f9; }
+        .card { border: none; border-radius: 12px; }
+        .property-img { width: 100%; height: 400px; object-fit: cover; border-radius: 10px; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="{% url 'property_list' %}">🏠 سامانه املاک پریا</a>
+        </div>
+    </nav>
+
+    <div class="container mb-5">
+        <a href="{% url 'property_list' %}" class="btn btn-outline-secondary mb-3">← بازگشت به لیست املاک</a>
+
+        <div class="card shadow-sm p-4">
+
+            <!-- بخش نمایش عکس ملک -->
+            {% if property.image %}
+                <img src="{{ property.image.url }}" alt="{{ property.title }}" class="property-img shadow-sm">
+            {% else %}
+                <div class="p-5 bg-light rounded text-center text-muted mb-3">
+                    <span>تصویری برای این ملک ثبت نشده است.</span>
+                </div>
+            {% endif %}
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h2 class="fw-bold mb-0">{{ property.title }}</h2>
+                <span class="badge bg-primary fs-6 px-3 py-2">{{ property.get_deal_type_display }}</span>
+            </div>
+
+            <p class="text-muted fs-5">📍 شهر: {{ property.city }} | آدرس: {{ property.address }}</p>
+            <hr>
+
+            <div class="row my-4">
+                <div class="col-md-4">
+                    <div class="p-3 bg-light rounded text-center mb-2">
+                        <span class="d-block text-muted">قیمت</span>
+                        <strong class="text-success fs-4">{{ property.price }} تومان</strong>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-3 bg-light rounded text-center mb-2">
+                        <span class="d-block text-muted">متراژ</span>
+                        <strong class="fs-4">{{ property.area }} متر مربع</strong>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-3 bg-light rounded text-center mb-2">
+                        <span class="d-block text-muted">تعداد اتاق</span>
+                        <strong class="fs-4">{{ property.rooms }} اتاق</strong>
+                    </div>
+                </div>
+            </div>
+
+            <h5 class="fw-bold mt-3">توضیحات ملک:</h5>
+            <p class="lh-lg text-secondary">{{ property.description|default:"توضیحاتی ثبت نشده است." }}</p>
+
+            <hr>
+            <div class="d-flex justify-content-between align-items-center">
+                <small class="text-muted">تاریخ ثبت: {{ property.created_at|date:"Y/m/d" }}</small>
+                <small class="text-muted">مشاور مربوطه: {{ property.agent.username }}</small>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

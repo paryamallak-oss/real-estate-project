@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ثبت‌نام در سامانه املاک</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background-color: #f4f6f9; }
+        .auth-card { max-width: 450px; margin: 60px auto; border: none; border-radius: 12px; }
+        .form-control { border-radius: 8px; margin-bottom: 12px; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="card auth-card shadow-sm p-4">
+            <h3 class="fw-bold text-center mb-4">ایجاد حساب کاربری</h3>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary w-100 fw-bold mt-2 py-2">ثبت‌نام</button>
+            </form>
+            <div class="text-center mt-3">
+                <small class="text-muted">قبلاً ثبت‌نام کرده‌اید؟ <a href="{% url 'login' %}">ورود به حساب</a></small>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
